@@ -49,6 +49,29 @@ class ViewController: UIViewController {
         // 7. sort the words alphabetically
         // 8. loop through the array and print out the count for each word
         
+        func formatWord(word: String) -> String {
+            return word.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).lowercaseString
+        }
+        
+        let words = split(fileContents) {$0 == " "}.map(formatWord)
+        
+        var dictionary = [String: Int]();
+        
+        for word in words {
+            if (dictionary[word] != nil) {
+                dictionary[word] = dictionary[word]! + 1
+            }
+            else {
+                dictionary[word] = 1
+            }
+        }
+        
+        var sortedWords = sorted(dictionary.keys, <)
+        for word in sortedWords {
+            println("\(word): \(dictionary[word]!)")
+        }
+        
+        
         // Some useful documentation:
         // see a stackoverflow for the split method: http://stackoverflow.com/questions/25678373/swift-split-a-string-into-an-array
         
